@@ -1,9 +1,11 @@
 console.log("Provaaaa")
 
 async function getDashboardData(query){
-    const response = await fetch(`http://localhost:3333/destinations?search=${query}`)
-    const destination = await response.json();
-    console.log(destination)
+    const promises = []
+    const destinationPromise = fetch(`http://localhost:3333/destinations?search=${query}`)
+    const weatherPromise = fetch(`http://localhost:3333/weathers?search=${query}`)
+    const airportPromise = fetch(`http://localhost:3333/airports?search=${query}`)
+
 }
 
 
