@@ -7,13 +7,20 @@ async function fetchJson(url){
 }
 
 async function getDashboardData(query){
-    const promises = []
+    let promises = []
     const destination = fetchJson(`http://localhost:3333/destinations?search=${query}`)
     const weather = fetchJson(`http://localhost:3333/weathers?search=${query}`)
     const airport = fetchJson(`http://localhost:3333/airports?search=${query}`)
-    promises.push(destination, weather, airport)
-    const data = await Promise.all(promises)
-    return data
+    promises = [destination, weather, airport]
+    const [destinationResult, weatherResult, airportResult] = await Promise.all(promises)
+    
+    return{
+        city: destinationResult[0].name,
+        country: destinationResult[0].country,
+        temperature: weatherResult[0].temperature,
+        weather: weatherResult[0].weather_description,
+        airport: airportResult[0].name
+    }
 }
 
 
